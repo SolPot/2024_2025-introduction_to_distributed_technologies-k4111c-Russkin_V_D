@@ -8,21 +8,11 @@ Lab: [Laboratory Work №3 "Certificates and Secrets in Minikube, Secure Data St
 Date of create: 18.11.2024  
 Date of finished: 19.11.2024  
 ### Ход работы  
-1. Формирование [манифеста](configmap.yaml) для сервиса `ConfigMap`:  
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: frontend-configmap
-data:
-  react_app_user_name: "Russkin_Vadim"
-  react_app_company_name: "ITMO"
-```  
-2.Запуск миникуба с созданием configmap:  
+1. Запуск `minikube` с `Calico` с двумя нодами:  
 ![](screenshots/1.png)  
-3.Проверка создания configmap:  
+3.Проверка успешного запуска:  
 ![](screenshots/2.png)  
-4.Формирование [манифеста](replicaset.yaml) для контроллера `ReplicaSet`:  
+4.Формирование [манифеста](ippool1.yaml) для `IPPool`:  
 ```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -57,38 +47,64 @@ spec:
               name: frontend-configmap
               key: react_app_company_name
 ```  
-5.Создание сервиса 'replicaset' и его проверка:  
+5.Назначение меток для нодов:  
 ![](screenshots/3.png)  
-6.Формирование [манифеста](ingress.yaml) для сервиса `ingress`, и его создания:  
+6.Установка [манифеста](calicoctl.yaml):  
+![](screenshots/4.png)   
+7.Просмотр пулов:  
+![](screenshots/5.png)  
+8.Создание ресурсов на основе 'IPPool':  
+![](screenshots/6.png)  
+9. Проверка создания ресурсов:    
+![](screenshots/7.png)  
+10.Формирование [манифеста](deployment.yaml) для развертывания  
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deplt
+  labels:
+    app: fronted
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fronted
+  template:
+    metadata:
+      labels:
+        app: fronted
+    spec:
+      containers:
+      - name: frontned-container
+        image: ifilyaninitmo/itdt-contained-frontend:master
+        resources: 
+          limits:
+            memory: "512M"
+            cpu: ".5"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_USERNAME
+          value: Russkin_Vadim
+        - name: REACT_APP_COMPANY_NAME
+          value: ITMO
+```  
+11.Формирование [манифеста](service.yaml) для развертывания сервисов:  
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: front
-  labels:
-    app: front
+  name: service
 spec:
-  type: NodePort
   selector:
-    app: front
+    app: fronted
   ports:
-    - protocol: TCP
-      port: 3000
+    - port: 3000
       targetPort: 3000
-      nodePort: 31111
-```  
-![](screenshots/4.png)   
-7.Установка [openssl]((https://slproweb.com/products/Win32OpenSSL.html)) и его [настройка](https://dev.to/danilovieira/installing-openssl-on-windows-and-adding-to-path-3mbf):  
-![](screenshots/5.png)  
-8. Генерация ключа и подпись сертификата на 30 дней:  
-![](screenshots/6.png)  
-Подпись  
-![](screenshots/7.png)  
-9.Создание tls  
-![](screenshots/8.png)   
-10.Включение аддонов ingress и ingress-dns:  
-![](screenshots/9.png)  
-11. Формирование манифеста 'front-ingress':  
+  type: LoadBalancer
+``` 
+12. Проверка сервисов:  
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -111,12 +127,9 @@ spec:
             port:
               number: 3000
 ```   
-12. Проброс хоста в файл 'hosts'  
-13. Туннелируем Ingress  
-![](screenshots/10.png)  
-14.Переходим по адресу 'fronted.edu'  
-![](screenshots/11.png)  
-15.Проверка сведений о сертификате (спасибо касперскому с яндексу):  
-![](screenshots/12.png)  
+12. Проброс порта
+![](screenshots/8.png)    
+14. Проверка доступности контейнера    
+![](screenshots/9.png)  
 Схема организация контейнеров и сервисов  
-![](screenshots/13.png)  
+![](screenshots/10.png)  
