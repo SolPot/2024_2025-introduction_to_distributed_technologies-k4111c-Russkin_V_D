@@ -19,9 +19,9 @@ data:
   react_app_company_name: "ITMO"
 ```
 2.Запуск миникуба с созданием configmap:
-![](screenshot/1.png)
+![](screenshots/1.png)
 3.Проверка создания configmap:
-![](screenshot/2.png)
+![](screenshots/2.png)
 4.Формирование [манифеста](replicaset.yaml) для контроллера `ReplicaSet`:
 ```yaml
 apiVersion: apps/v1
@@ -58,7 +58,7 @@ spec:
               key: react_app_company_name
 ```
 5.Создание сервиса 'replicaset' и его проверка:
-![](screenshot/3.png)
+![](screenshots/3.png)
 6.Формирование [манифеста](ingress.yaml) для сервиса `ingress`, и его создания:
 ```yaml
 apiVersion: v1
@@ -77,17 +77,17 @@ spec:
       targetPort: 3000
       nodePort: 31111
 '''
-![](screenshot/4.png)
+![](screenshots/4.png)
 7.Установка [openssl]((https://slproweb.com/products/Win32OpenSSL.html)) и его [настройка](https://dev.to/danilovieira/installing-openssl-on-windows-and-adding-to-path-3mbf):
-![](screenshot/5.png)
+![](screenshots/5.png)
 8. Генерация ключа и подпись сертификата на 30 дней:
-![](screenshot/6.png)
+![](screenshots/6.png)
 Подпись
-![](screenshot/7.png)
+![](screenshots/7.png)
 9.Создание tls
-![](screenshot/8.png)
+![](screenshots/8.png)
 10.Включение аддонов ingress и ingress-dns:
-![](screenshot/9.png)
+![](screenshots/9.png)
 11. Формирование манифеста 'front-ingress'
 '''yaml
 apiVersion: networking.k8s.io/v1
@@ -113,10 +113,10 @@ spec:
 '''
 12. Проброс хоста в файл 'hosts'
 13. Туннелируем Ingress
-![](screenshot/10.png)
+![](screenshots/10.png)
 14.Переходим по адресу 'fronted.edu'
-![](screenshot/11.png)
+![](screenshots/11.png)
 15.Проверка сведений о сертификате (спасибо касперскому с яндексу):
-![](screenshot/12.png)
+![](screenshots/12.png)
 Схема организация контейнеров и сервисов
-![](screenshot/13.png)
+![](screenshots/13.png)
