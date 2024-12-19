@@ -88,7 +88,7 @@ spec:
 ![](screenshots/8.png)   
 10.Включение аддонов ingress и ingress-dns:  
 ![](screenshots/9.png)  
-11. Формирование манифеста 'front-ingress' 
+11. Формирование манифеста 'front-ingress':  
 '''yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -110,7 +110,7 @@ spec:
             name: frontend-service
             port:
               number: 3000
-'''  
+'''   
 12. Проброс хоста в файл 'hosts'  
 13. Туннелируем Ingress  
 ![](screenshots/10.png)  
