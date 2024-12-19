@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: front
   labels:
-    app: Front
+    app: front
 spec:
   type: NodePort
   selector:
-    app: lab3-frontend
+    app: front
   ports:
     - protocol: TCP
       port: 3000
