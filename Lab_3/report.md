@@ -19,10 +19,9 @@ data:
   react_app_company_name: "ITMO"
 ```
 2.Запуск миникуба с созданием configmap: 
-![](screenshots/1.png)
+![](screenshots/1.png) 
 3.Проверка создания configmap: 
-
-![](screenshots/2.png)
+![](screenshots/2.png) 
 4.Формирование [манифеста](replicaset.yaml) для контроллера `ReplicaSet`:
 ```yaml
 apiVersion: apps/v1
@@ -58,9 +57,9 @@ spec:
               name: frontend-configmap
               key: react_app_company_name
 ```
-5.Создание сервиса 'replicaset' и его проверка:
-![](screenshots/3.png)
-6.Формирование [манифеста](ingress.yaml) для сервиса `ingress`, и его создания:
+5.Создание сервиса 'replicaset' и его проверка: 
+![](screenshots/3.png) 
+6.Формирование [манифеста](ingress.yaml) для сервиса `ingress`, и его создания: 
 ```yaml
 apiVersion: v1
 kind: Service
@@ -78,17 +77,17 @@ spec:
       targetPort: 3000
       nodePort: 31111
 ```
-![](screenshots/4.png)
-7.Установка [openssl]((https://slproweb.com/products/Win32OpenSSL.html)) и его [настройка](https://dev.to/danilovieira/installing-openssl-on-windows-and-adding-to-path-3mbf):
-![](screenshots/5.png)
-8. Генерация ключа и подпись сертификата на 30 дней:
-![](screenshots/6.png)
-Подпись
-![](screenshots/7.png)
-9.Создание tls
-![](screenshots/8.png)
-10.Включение аддонов ingress и ingress-dns:
-![](screenshots/9.png)
+![](screenshots/4.png) 
+7.Установка [openssl]((https://slproweb.com/products/Win32OpenSSL.html)) и его [настройка](https://dev.to/danilovieira/installing-openssl-on-windows-and-adding-to-path-3mbf): 
+![](screenshots/5.png) 
+8. Генерация ключа и подпись сертификата на 30 дней: 
+![](screenshots/6.png) 
+Подпись 
+![](screenshots/7.png) 
+9.Создание tls 
+![](screenshots/8.png) 
+10.Включение аддонов ingress и ingress-dns: 
+![](screenshots/9.png) 
 11. Формирование манифеста 'front-ingress'
 '''yaml
 apiVersion: networking.k8s.io/v1
@@ -112,12 +111,12 @@ spec:
             port:
               number: 3000
 '''
-12. Проброс хоста в файл 'hosts'
-13. Туннелируем Ingress
-![](screenshots/10.png)
-14.Переходим по адресу 'fronted.edu'
-![](screenshots/11.png)
-15.Проверка сведений о сертификате (спасибо касперскому с яндексу):
-![](screenshots/12.png)
-Схема организация контейнеров и сервисов
-![](screenshots/13.png)
+12. Проброс хоста в файл 'hosts' 
+13. Туннелируем Ingress 
+![](screenshots/10.png) 
+14.Переходим по адресу 'fronted.edu' 
+![](screenshots/11.png) 
+15.Проверка сведений о сертификате (спасибо касперскому с яндексу): 
+![](screenshots/12.png) 
+Схема организация контейнеров и сервисов 
+![](screenshots/13.png) 
