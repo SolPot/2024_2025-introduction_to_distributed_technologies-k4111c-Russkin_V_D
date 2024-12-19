@@ -18,9 +18,10 @@ data:
   react_app_user_name: "Russkin_Vadim"
   react_app_company_name: "ITMO"
 ```
-2.Запуск миникуба с созданием configmap:
+2.Запуск миникуба с созданием configmap: 
 ![](screenshots/1.png)
-3.Проверка создания configmap:
+3.Проверка создания configmap: 
+
 ![](screenshots/2.png)
 4.Формирование [манифеста](replicaset.yaml) для контроллера `ReplicaSet`:
 ```yaml
@@ -76,8 +77,7 @@ spec:
       port: 3000
       targetPort: 3000
       nodePort: 31111
-'''
-
+```
 ![](screenshots/4.png)
 7.Установка [openssl]((https://slproweb.com/products/Win32OpenSSL.html)) и его [настройка](https://dev.to/danilovieira/installing-openssl-on-windows-and-adding-to-path-3mbf):
 ![](screenshots/5.png)
