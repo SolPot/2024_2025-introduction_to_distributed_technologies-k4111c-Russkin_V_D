@@ -77,6 +77,7 @@ spec:
       targetPort: 3000
       nodePort: 31111
 '''
+
 ![](screenshots/4.png)
 7.Установка [openssl]((https://slproweb.com/products/Win32OpenSSL.html)) и его [настройка](https://dev.to/danilovieira/installing-openssl-on-windows-and-adding-to-path-3mbf):
 ![](screenshots/5.png)
