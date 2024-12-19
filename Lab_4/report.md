@@ -4,15 +4,15 @@ Course: [Introduction to distributed technologies](https://github.com/itmo-ict-f
 Year: 2024/2025  
 Group: K4111c  
 Author: [Russkin Vadim Denisovich](https://github.com/SolPot)  
-Lab: [Laboratory Work №3 "Certificates and Secrets in Minikube, Secure Data Storage"](https://itmo-ict-faculty.github.io/introduction-to-distributed-technologies/education/labs2023_2024/lab3/lab3/)  
-Date of create: 18.11.2024  
+Lab: [Laboratory Work №4 "Communication Networks in Minikube, CNI, and CoreDNS"](https://itmo-ict-faculty.github.io/introduction-to-distributed-technologies/education/labs2023_2024/lab4/lab4/)  
+Date of create: 19.11.2024  
 Date of finished: 19.11.2024  
 ### Ход работы  
 1. Запуск `minikube` с `Calico` с двумя нодами:  
 ![](screenshots/1.png)  
-3.Проверка успешного запуска:  
+2.Проверка успешного запуска:  
 ![](screenshots/2.png)  
-4.Формирование [манифеста](ippool1.yaml) для `IPPool`:  
+3.Формирование [манифеста](ippool1.yaml) для `IPPool`:  
 ```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -47,17 +47,15 @@ spec:
               name: frontend-configmap
               key: react_app_company_name
 ```  
-5.Назначение меток для нодов:  
+4.Назначение меток для нодов:  
 ![](screenshots/3.png)  
-6.Установка [манифеста](calicoctl.yaml):  
+5.Установка [манифеста](calicoctl.yaml):  
 ![](screenshots/4.png)   
-7.Просмотр пулов:  
-![](screenshots/5.png)  
-8.Создание ресурсов на основе 'IPPool':  
+6.Просмотр пулов:  
 ![](screenshots/6.png)  
-9. Проверка создания ресурсов:    
+7.Удаление дефолтных ip, создание ресурсов на основе 'IPPool'и его проверка:  
 ![](screenshots/7.png)  
-10.Формирование [манифеста](deployment.yaml) для развертывания  
+8.Формирование [манифеста](deployment.yaml) для развертывания:  
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -90,7 +88,7 @@ spec:
         - name: REACT_APP_COMPANY_NAME
           value: ITMO
 ```  
-11.Формирование [манифеста](service.yaml) для развертывания сервисов:  
+9.Формирование [манифеста](service.yaml) для развертывания сервисов:  
 ```yaml
 apiVersion: v1
 kind: Service
@@ -104,32 +102,12 @@ spec:
       targetPort: 3000
   type: LoadBalancer
 ``` 
-12. Проверка сервисов:  
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: frontend-ingress
-spec:
-  tls:
-  - hosts:
-      - fronted.edu
-    secretName: fronted-tls
-  rules:
-  - host: fronted.edu
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend-service
-            port:
-              number: 3000
-```   
-12. Проброс порта
-![](screenshots/8.png)    
-14. Проверка доступности контейнера    
+10. Проверка сервисов:  
+![](screenshots/8.png)  
+11.Проброс порта командой:  
 ![](screenshots/9.png)  
-Схема организация контейнеров и сервисов  
+12. Проверка доступности контейнера:  
 ![](screenshots/10.png)  
+Схема организация контейнеров и сервисов  
+![](screenshots/11.png)  
+P.S. Были ошибки связанные с дублированием "\" (windows), а также ошибки по невнимательности (не увидил, что у нода идёт иницилизация или то что не готовы поды), в следствии чего, на проверке сервисов => сервисы не были запущены.
