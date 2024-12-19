@@ -85,7 +85,7 @@ spec:
 Подпись 
 ![](screenshots/7.png) 
 9.Создание tls 
-![](screenshots/8.png) 
+![](screenshots/8.png)  
 10.Включение аддонов ingress и ingress-dns: 
 ![](screenshots/9.png) 
 11. Формирование манифеста 'front-ingress'
